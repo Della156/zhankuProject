@@ -1,7 +1,7 @@
 
 			/*头部样式开始*/
 			#head{height:60px;background:rgba(0,0,0,0.8);}
-			#head > .headMain{margin:0 auto;width:980px;}
+			#head > .headMain{margin:0 auto;width:980px;height: 100%;}
 			#head > .headMain > h1{float:left;margin:16px 20px 0 0;}
 			#head > .headMain > .nav{float: right;}
 			#head > .headMain > .nav >li{width:90px;float: left;}
@@ -9,24 +9,55 @@
 			#head > .headMain > .nav .active a{background: #FFCC00;color: #000;}
 			#head > .headMain > .nav a:hover{background: #FFCC00;color: #000;}
 			/*头部样式结束*/
-			
+			/*购物车*/
+			#settle_up {position: relative;right: -100%;height: 60px;width:60px;}
+			#settle_up > .iconfont{position: absolute;left: 15px;top: 12px;font-size: 40px;color:#E6E6E6;transition: 1s color;}
+			#settle_up > .iconfont:hover{color: #FFCC00;}
+			#settle_up > .icon-gouwucheman{color: #FFCC00 !important;}
+			#settle_up > .num{position: absolute;height:18px;width: 18px;border-radius: 50%;background: #FFCC00;
+													right:0px;top:13px;z-index: 1;color: #fff;font-size: 12px;text-align:center;}
+			#settle_up > .cart_box{position: absolute;height: 300px;width: 300px;background: #333;top:-400px;transition: 1s top;
+										border-radius:0 0 10px 10px;z-index: 11;box-shadow: 0 8px 13px #333;right:-162px;overflow: auto;}
+			#settle_up > .cart_box h3{position:fixed;color: #FFCC00;width:300px;top:53px;margin-top: 7px;
+																display: block;background: #333;padding:9px;z-index: 12;}
+			#settle_up > .cart_box h3 img{float: right;width: 22px;margin-right: 226px;}
+			#settle_up > .cart_box > .cart_none {position: absolute;line-height: 58px;padding-left: 16px;color:#ddd;
+											z-index: 12;top: 30px;}
+			#settle_up > .cart_box > .cart_bottom{position:fixed;width:100%;height: 30px;top:332px;border-radius: 0 0 10px 10px;
+												background: #fff;line-height: 30px;padding-left: 5px;display: none;}
+
+			/* 购物车盒子 */
+			#settle_up > .cart_box > .cart_pic{position: absolute;width: 100%;margin-top: 40px;}
+			#settle_up > .cart_box > .cart_pic li{position: relative;height: 75px;width:100%;color: white;transition: 1s;}
+			#settle_up > .cart_box > .cart_pic li a{transition: 1s opacity;}
+			#settle_up > .cart_box > .cart_pic li a img{position: absolute;width: 22px;right: 4px; top: 28px;left: 266px;}
+			#settle_up > .cart_box > .cart_pic li:hover a{opacity: 1!important;}
+			#settle_up > .cart_box > .cart_pic li >img{position: absolute;width: 57px;padding: 5px;float: left;margin-right: 1px;}
+			#settle_up > .cart_box > .cart_pic li >p{position: absolute;font-size: 19px;left: 68px;}
+			#settle_up > .cart_box > .cart_pic li >span{position: absolute;color: #FFCC00;font-size: small;left: 68px;top:30px;}
+			::-webkit-scrollbar {
+				/*隐藏滚轮*/
+				display: none;
+			}
+
+
 			/*内容区样式开始*/
 			/*内容区右侧的小圆点*/
 			#container > .dot{position: fixed;width: 10px;top:50%;right:15px;z-index: 3;}
 			#container > .dot > li a{float: left;width:10px;height:10px;border: 1px solid black;border-radius: 50%;margin-bottom: 7px;transition: 1s background;text-decoration: none;}
 			#container > .dot .active a{background: black;cursor: default;}
-			#container > .dot > li a:hover{background: black;cursor: pointer;}		
+			#container > .dot > li a:hover{background: black;cursor: pointer;}
 
 
 
 			/*小圆点结束*/
-			
+
 			#container{position:absolute;width:100%;overflow: hidden;}
 			#container > .list{position: absolute;width:100%;height:100%;left:0px;top:0px;transition: 1s top;}
 			/*background-position 设置背景图片居中显示*/
 			#container > .list > li{position: relative;height: 100%;width:100%;background-position:50% 50% !important;overflow: hidden;}
 			#container > .list > li .bg{position: absolute;right:0;bottom:0;}
-			
+
 			/*第一屏样式开始*/
 			#container > .list > .home1{background: url(../img/s1.jpg) center;width: 100%;height:100%;}
 			#container > .list > .home1 > img{position: absolute;left:50%;top:50%;margin-left:-545px;margin-top:-260px;
@@ -113,25 +144,5 @@
 				60%{ transform: translate(-330px,0px) }
 				100%{ transform: translate(0,0) }
 			}
-			
-			/*购物车添加  */
-			#head > .headMain > .cart{position: absolute;height:20px;width: 20px;background: #D4237A;top: 31px;right: 56px;z-index:6;border-radius: 50%;text-align: center;color: white;  overflow: hidden; opacity: 0;transition: 2s opacity;}
-			#head > .headMain > .cart > ul{position: absolute;transition: 1s top;}
-			#head > .headMain > .cart > ul li{margin:0 auto;width: 20px;}
-			#head > .headMain >a img{position: absolute;right: 63px;top:11px;width:42px;z-index: 5;transition: 2s background;}
-			/* 购物车盒子 */
-			#container > .cart_box{position: fixed; height:315px;right: 30px;top: -400px;width: 260px;background: #333; overflow: auto; padding:12px;transition: 1s top;border: 1px solid rgba(0,0,0,0.2);border-radius: 10px;box-shadow: 0px 8px 13px #333;z-index: 2;}
-			#container > .cart_box h3 img{float: right;width: 22px;margin-right: 175px;}
-			#container > .cart_box h3{color: #FFCC00;margin-bottom: 5px;}
-			#container > .cart_box > .cart_pic{height: 100%;}
-			#container > .cart_box >.cart_pic li a{transition: 1s opacity;}
-   		    #container > .cart_box >.cart_pic li a img{position: absolute;width: 22px;right: 4px; top: 28px;}
-   		    #container > .cart_box >.cart_pic li:hover a{opacity: 1!important;}
-			#container > .cart_box >.cart_pic li{height: 75px;color: white;position: relative;transition: 1s;}
-			#container > .cart_box >.cart_pic li >img{position: absolute;width: 57px;padding: 5px;float: left;margin-right: 1px;} 
-			#container > .cart_box >.cart_pic li >p{position: absolute;font-size: 19px;left: 68px;}
-			#container > .cart_box >.cart_pic li >span{position: absolute;color: #FFCC00;font-size: small;left: 68px;top:30px;}
-		 	::-webkit-scrollbar {
-				/*隐藏滚轮*/
-				display: none;
-			} 
+
+

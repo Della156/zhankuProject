@@ -2,134 +2,151 @@
 window.onload = function  () {
 			var headNode = document.querySelector("#head");
 			var LiNodes =  document.querySelectorAll("#head > .headMain > .nav >li");
-			
 
+			/*内容区*/
 			var container = document.querySelector("#container");
 			var cList = document.querySelector("#container > .list");
 			var cLiNodes = document.querySelectorAll("#container > .list > li");
 			var dotLiNodes = document.querySelectorAll("#container > .dot > li");
-			var cartBoxUl = document.querySelector('#container > .cart_box >.cart_pic');
-			var cartBoxLi = document.querySelector('#container > .cart_box >.cart_pic li');
+
+
 			/*添加购物车*/
-			
-			var cartImg = document.querySelector('#head > .headMain >a img');
-			var cart = document.querySelector('#head > .headMain > .cart');
-			var cartUl = document.querySelector('#head > .headMain > .cart >ul');
-			var cartBox = document.querySelector('#container > .cart_box');
-			
-
-			//将点击每屏的index放到全局作用域中
-			var now = 0;
-			var timer = 0;
-			var preIndex = 0;
-
-			/*购物车的下标*/
-			var indexCart = 0;
-			var imgIndex = 0;
-			/*添加商品到购物车*/
-			function addCart(){
-				//将每个a的小标给图片下标
-				imgIndex = this.index;
-				indexCart++;			
-				var boxImg = document.querySelector('#container > .cart_box >.cart_pic li >img');
-				 //创建商品标签的介绍文字的数组 （后期可以通过数据库得到这些数据）
-				var pArr = ['望','听','悟','Love','Filial and eros aw','Good Time','绽放2009','绽放2010','绽放2011','栖息','惊蛰','恬静'];
-				//创建商品的价格数组（后期可以通过数据库得到这些数据）
-				var moneyArr = ['￥2845','￥5489','￥3544','￥9566','￥3845','￥8854','￥1999','￥3649','￥8546','￥3349','￥6645','￥2286','￥7778']
-				cartImg.src = 'img/cart/cart.png';
-				cart.style.opacity = 1;
-				cartUl.innerHTML +=  "<li>"+indexCart+"</li>";	
-				cartUl.style.top = -19*(indexCart-1)+'px';
-				cartBox.style.top = '60px';
-
-				/*js动态创建
-					
-					<li>
-						<img src="img/img1.png">
-						<p>望</p>
-						<span>￥2491</span>
-						<a href="#" style="opacity: 0;">
-							<img src="img/x.png" alt="x">
-						</a>
-					</li>
-				 */
-				var liNode = document.createElement("li");
-				var imgNode = document.createElement("img");
-				var pNode = document.createElement('p');
-				var span = document.createElement('span');
-				var a = document.createElement('a');
-				a.href = '#';
-				a.innerHTML = '<img src="img/cart/x.png" alt="x">';
-				a.style.opacity = 0;
-				pNode.innerHTML = pArr[imgIndex];
-				span.innerHTML = moneyArr[imgIndex];
-				imgNode.src = `img/products/img${imgIndex+1}.png`;
-				liNode.appendChild(imgNode);
-				liNode.appendChild(pNode);
-				liNode.appendChild(span);
-				liNode.appendChild(a);
-				a.onclick = removeLi;
-				document.querySelector('#container > .cart_box > .cart_pic').appendChild(liNode);	
-			}
-
-			//删除加入购物车中的物品
-			function removeLi(){
-				var liNode = this.parentNode;
-				liNode.parentNode.removeChild(liNode);
-				indexCart--;
-				cartUl.innerHTML +=  "<li>"+indexCart+"</li>";
-				cartUl.style.top = -19*(indexCart-1)+'px';
-				if(indexCart==0){
-					cartImg.src = 'img/cart/cart1.png';
-					cart.style.opacity = 0;
-					cartBox.style.top = '-400px';
-				}
-				/*取消浏览器默认行为*/
-				return false;
-			}
-
-
+      var settleUp = document.getElementById('#settle_up');
+      var shopCar = document.querySelector('#settle_up>.iconfont');
+			var cartBox = document.querySelector('#settle_up > .cart_box');
+			var num = document.querySelector('#settle_up > .num');
+			var cartNone = document.querySelector('#settle_up > .cart_box > .cart_none');
+			var cartBottom = document.querySelector('#settle_up > .cart_box > .cart_bottom');
+			//初始化下标的值
+			var numIndex = 0
+  		num.innerHTML =	numIndex;
 			//遍历所有的a,找到对应的‘立即购买’出现相应的购物车商品
 			//document.anchors可以获取所有的带name属性的<a>元素
 			//var allA = document.getElementsByTagName('a');
-			var allA = document.anchors;
-			for (var i = 0;i < allA.length;i++) {
-				allA[i].index = i;
-				allA[i].onclick = addCart;
-			}
-
-
-			
-			
-			// 点击购物小车车打开/关闭购物盒子
-			cartImg.onclick = function () {
-				//出现购物清单
-				if (cartBox.style.top !== '60px') {
-					cartBox.style.top = '60px';
-				}else{
-					cartBox.style.top = '-400px';
+				var allA = document.anchors;
+				for (var i = 0;i < allA.length;i++) {
+					allA[i].index = i;
+					allA[i].onclick = addCart;
 				}
+
+
+
+			//点击购物车控制购物盒子显示/隐藏
+			var isClose = true;
+  		shopCar.onclick = function () {
+  			if(isClose){
+          cartBox.style.top = '60px';
+          this.style.color = '#ffcc00';
+  			}else {
+          cartBox.style.top = '-400px';
+          this.style.color = '#E6E6E6';
+				}
+				isClose = !isClose;
+  		}
+
+ 		 //创建商品标签的介绍文字的数组 （后期可以通过数据库得到这些数据）
+  		var pArr = ['望','听','悟','Love','Filial and eros aw','Good Time','绽放2009','绽放2010','绽放2011','栖息','惊蛰','恬静'];
+  	 //创建商品的价格数组（后期可以通过数据库得到这些数据）
+  		var moneyArr = ['2845','5489','3544','9566','3845','8854','1999','3649','8546','3349','6645','2286','7778']
+  	var totalMoney = 0;
+		function addCart() {
+      	cartNone.style.display = 'none';
+				let imgIndex = this.index;//0 1 2 3 4 5 ...
+				totalMoney = totalMoney+(+moneyArr[imgIndex]);
+        numIndex++;
+      	num.innerHTML =	numIndex;
+     /* <li>
+      		<img src="img/img1.png">
+					<p>望</p>
+					<span>￥2491</span>
+					<a href="#" style="opacity: 0;">
+						<img src="img/x.png" alt="x">
+					</a>
+        </li>
+     */
+      var liNode = document.createElement("li");
+      var imgNode = document.createElement("img");
+      var pNode = document.createElement('p');
+      var span = document.createElement('span');
+      var a = document.createElement('a');
+      a.href = '#';
+      a.innerHTML = '<img src="img/cart/x.png" alt="x">';
+      a.style.opacity = 0;
+      pNode.innerHTML = pArr[imgIndex];
+      span.innerHTML = '￥'+moneyArr[imgIndex];
+      imgNode.src = `img/products/img${imgIndex+1}.png`;
+      liNode.appendChild(imgNode);
+      liNode.appendChild(pNode);
+      liNode.appendChild(span);
+      liNode.appendChild(a);
+      a.index = imgIndex;
+      a.onclick = removeLi;
+      document.querySelector('#settle_up > .cart_box > .cart_pic').appendChild(liNode);
+      cartBox.style.top = '60px';
+      this.style.color = '#ffcc00';
+      if(numIndex>0){
+        shopCar.className = 'iconfont icon-gouwucheman';
+        cartBottom.style.display = 'block';
+        cartBottom.innerHTML = `共 ${numIndex} 件商品 共计 ¥ ${totalMoney}`;
+      }
+		}
+
+
+
+		//删除加入购物车中的物品
+		function removeLi(){
+			var liNode = this.parentNode;
+			liNode.parentNode.removeChild(liNode);
+      numIndex--;
+      totalMoney = totalMoney-(+moneyArr[this.index]);
+      num.innerHTML =	numIndex;
+			if(numIndex===0){
+        shopCar.className = 'iconfont icon-gouwuchekong'
+        cartNone.style.display = 'block';
+        cartBottom.style.display = 'none';
+			}else {
+        cartBottom.style.display = 'block';
+        cartBottom.innerHTML = `共 ${numIndex} 件商品 共计 ¥ ${totalMoney}`;
 			}
+			/*取消浏览器默认行为*/
+			return false;
+		}
 
 
-			/*踩坑：购物车取消冒泡事件*/
-			//用firefox变量表示火狐代理
-			var firefox = navigator.userAgent.indexOf('Firefox') != -1;
-			function MouseWheel(e){ 
-			    e = e||window.event;
-			    if (e.stopPropagation) { //这是取消冒泡
-			        e.stopPropagation();
-			    } else{
-			        e.cancelBubble = true;
-			    };
-			}
-			
-			//要在cartBox内部滚动，而页面不受影响，所以这里获取要滚动的对象cartBox
-			//如果是ff就绑定DOMMouseScroll事件，其他浏览器就用onmousewheel事件触发
-			firefox ? cartBox.addEventListener('DOMMouseScroll',MouseWheel,false) : (cartBox.onmousewheel = MouseWheel);
-			
 
 
+
+  /*踩坑：购物车取消冒泡事件*/
+  //用firefox变量表示火狐代理
+  var firefox = navigator.userAgent.indexOf('Firefox') != -1;
+  function MouseWheel(e){
+      e = e||window.event;
+      if (e.stopPropagation) { //这是取消冒泡
+          e.stopPropagation();
+      } else{
+          e.cancelBubble = true;
+      };
+  }
+
+  //要在cartBox内部滚动，而页面不受影响，所以这里获取要滚动的对象cartBox
+  //如果是ff就绑定DOMMouseScroll事件，其他浏览器就用onmousewheel事件触发
+   firefox ? cartBox.addEventListener('DOMMouseScroll',MouseWheel,false) : (cartBox.onmousewheel = MouseWheel);
+
+
+
+
+
+
+
+
+
+
+
+
+  //将点击每屏的index放到全局作用域中
+			var now = 0;
+			var timer = 0;
+			var preIndex = 0;
 
 
 			/*出入场动画*/
@@ -291,12 +308,12 @@ window.onload = function  () {
 				2.点击后视口只能出现一屏,在1的基础上对每一屏的偏移量进行重新调整
 			  */
 				containerBind();
-				cList.style.top = -now*(document.documentElement.clientHeight - headNode.offsetHeight)+'px';				
+				cList.style.top = -now*(document.documentElement.clientHeight - headNode.offsetHeight)+'px';
 			}
-			
-			/*内容区交互*/						
+
+			/*内容区交互*/
 			containerBind();
-			function containerBind() {				
+			function containerBind() {
 				//鼠标滚轮套路
 				if(container.addEventListener) {
 					/*让fn逻辑在频繁被触发的时候只会执行一次*/
@@ -328,18 +345,18 @@ window.onload = function  () {
 						case "up":
 							if (now>0){
 								now--;
-								move(now);	
+								move(now);
 							}
 							break;
 						case "down":
 							if (now<cLiNodes.length-1){
 								now++;
-								move(now);	
-							}											
+								move(now);
+							}
 							break;
-					}				
-				}			
-				
+					}
+				}
+
 				/*内容区的高度等于视口高度-头部的高度*/
 				/*JS动态获取内容区的高度*/
 				container.style.height = document.documentElement.clientHeight - headNode.offsetHeight+'px';
@@ -352,14 +369,14 @@ window.onload = function  () {
 					dotLiNodes[i].onclick = function() {
 						//now 被赋值之前是上一屏的索引
 					  preIndex = now;
-					  
+
 						move(this.index);
 						now = this.index;
 					}
 				}
 			}
-			
-			
+
+
 			/*头部交互*/
 			headBind();
 			function headBind() {
@@ -369,14 +386,14 @@ window.onload = function  () {
 						LiNodes[i].onclick = function () {
 							//now 赋值之前是上一屏的索引
 						  preIndex = now;
-						  
+
 							move(this.index);
 							//将点击每屏的index放到全局作用域中
 							now = this.index;
 						}
-						
-				}				
-				
+
+				}
+
 			}
 			//动画的核心函数
 			function move(index) {
@@ -403,8 +420,7 @@ window.onload = function  () {
 				//将list整体往上移动每屏的高度（视口-头部的高度）
 				cList.style.top = -index*(document.documentElement.clientHeight - headNode.offsetHeight)+'px';
 			}
-			
-			
-			
+
+
+
 		}
-	
